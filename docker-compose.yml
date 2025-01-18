@@ -32,15 +32,22 @@ services:
     depends_on:
       - postgres
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   container_name: workshop_frontend
-  #   restart: always
+  frontend:
+    build:
+      context: ./frontend
+    container_name: workshop_frontend
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - app_network
+  # nginx:
+  #   image: nginx
   #   ports:
-  #     - "8080:80"
+  #     - "80:80"
   #   networks:
   #     - app_network
+
 
 volumes:
   postgres_data:

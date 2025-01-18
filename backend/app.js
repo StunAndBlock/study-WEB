@@ -8,8 +8,8 @@ const taskRoutes = require('./routes/tasks');
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/api/mechanics', mechanicRoutes);
-app.use('/api/mechanics', taskRoutes);
+app.use('/api', mechanicRoutes);
+app.use('/api', taskRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -5,11 +5,15 @@
     "main": "app.js",
     "scripts": {
       "start": "node app.js",
-      "dev": "nodemon app.js"
+      "dev": "nodemon app.js",
+      "db:migrate": "sequelize-cli db:migrate",
+      "db:migration:make": "sequelize-cli migration:generate --name",
+      "db:seed": "sequelize-cli db:seed:all"
     },
     "dependencies": {
       "express": "^4.18.2",
       "sequelize": "^6.31.0",
+      "sequelize-cli": "^6.6.1",
       "pg": "^8.10.0",
       "pg-hstore": "^2.3.4",
       "cors": "^2.8.5"
