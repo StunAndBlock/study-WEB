@@ -1,0 +1,23 @@
+{
+    "development": {
+      "username": "postgres",
+      "password": "ps",
+      "database": "workshop_manager",
+      "host": "postgres",
+      "dialect": "postgres"
+    },
+    "test": {
+      "username": "postgres",
+      "password": "ps",
+      "database": "workshop_manager_test",
+      "host": "postgres",
+      "dialect": "postgres"
+    },
+    "production": {
+      "username": "postgres",
+      "password": "ps",
+      "database": "workshop_manager_prod",
+      "host": "postgres",
+      "dialect": "postgres"
+    }
+  }
