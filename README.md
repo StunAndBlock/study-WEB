@@ -33,6 +33,7 @@
 - CSS (YES :--) obviously)
 - JavaScript (Logic)
 - React (UI)
+- nginx ( default interlayer <->)
 ### back:
 ### server:
 - Node.js (YES :--) obviously)
@@ -41,9 +42,9 @@
 ### DB:
 - PostgreSql (cool <-------)
 
-## **REST API**
+## **REST APi**
 Будет реализовано несколько API-эндпоинтов для CRUD операций:
-## Автомеханики:
+### Автомеханики
 1. Получить список автомехаников
 `GET /api/mechanics`
 2. Добавить автомеханика
@@ -52,7 +53,7 @@
 `PUT /api/mechanics/:id`
 4. Удалить автомеханика
 `DELETE /api/mechanics/:id`
-## Задания на ТО:
+### Задания на ТО
 1. Получить список заданий механика
 `GET /api/mechanics/:id/tasks`
 2. Добавить задание
