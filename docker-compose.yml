@@ -1,0 +1,49 @@
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: workshop_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ps
+      POSTGRES_DB: workshop_manager
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  backend:
+    build:
+      context: ./backend
+    container_name: workshop_backend
+    restart: always
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: ps
+      DB_NAME: workshop_manager
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    depends_on:
+      - postgres
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #   container_name: workshop_frontend
+  #   restart: always
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     - app_network
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
