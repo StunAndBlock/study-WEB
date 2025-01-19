@@ -13,7 +13,6 @@ if (config.use_env_variable) {
     sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-// Automatically import all models in the "models" directory
 fs.readdirSync(__dirname)
     .filter(file => {
         return (

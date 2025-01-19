@@ -1,8 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
     const Mechanic = sequelize.define('Mechanic', {
       id: {
-        type: DataTypes.STRING,
-        primaryKey: true
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
       },
       name: {
         type: DataTypes.STRING,
@@ -12,9 +14,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false
       }
-    }, {});
+    }, 
+    {
+      tableName: 'Mechanics',
+    });
     Mechanic.associate = function(models) {
-      Mechanic.hasMany(models.Task);
+      Mechanic.hasMany(models.Task, {
+        foreignKey: 'mechanicId', // Указываем ключ для связи
+        as: 'tasks', // Удобный алиас
+      });
     };
     return Mechanic;
   };
+
+  
