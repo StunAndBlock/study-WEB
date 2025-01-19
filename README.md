@@ -62,3 +62,19 @@
 `DELETE /api/mechanics/:id/tasks/:taskId`
 4. Переназначить задание на другого механика
 `PUT /api/mechanics/:id/tasks/:taskId`
+## **СТАТУС -> DONE (100%)**
+### RUN:
+`
+study-WEB/> docker-compose up --build
+`
+### RERUN:
+`
+study-WEB/> docker-compose down 
+`\
+`
+study-WEB/> docker-compose up 
+`
+### RESET:
+`
+study-WEB/> docker-compose down && docker volume rm study-web_postgres_data
+`
