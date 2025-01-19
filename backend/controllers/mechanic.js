@@ -11,8 +11,9 @@ exports.getAllMechanics = async (req, res) => {
 
 exports.createMechanic = async (req, res) => {
   try {
-    const { id, name, carBrands } = req.body;
-    const mechanic = await db.Mechanic.create({ id, name, carBrands });
+    const {name, carBrands } = req.body;
+    console.log("Received data:", req.body);
+    const mechanic = await db.Mechanic.create({name, carBrands });
     res.status(201).json(mechanic);
   } catch (error) {
     res.status(500).send(error.message);

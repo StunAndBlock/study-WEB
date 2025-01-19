@@ -2,23 +2,32 @@ const db = require('../models');
 
 exports.getTasksForMechanic = async (req, res) => {
   try {
-    const mechanic = await db.Mechanic.findByPk(req.params.id, { include: db.Task });
-    if (mechanic) {
-      res.json(mechanic.Tasks);
-    } else {
-      res.status(404).send('Mechanic not found');
+    const mechanic = await db.Mechanic.findByPk(req.params.id);
+
+    if (!mechanic) {
+      return res.status(404).send('Mechanic not found');
     }
+
+    // Загружаем задачи для механика вручную, чтобы проверить
+    const tasks = await db.Task.findAll({
+      where: { mechanicId: mechanic.id }
+    });
+
+    res.json(tasks);
   } catch (error) {
-    res.status(500).send(error.message);
+    console.error('Error fetching tasks:', error);
+    res.status(500).send('Internal Server Error');
   }
 };
-
 exports.addTaskToMechanic = async (req, res) => {
   try {
     const mechanic = await db.Mechanic.findByPk(req.params.id);
+    console.log("Request body:", req.body);
     if (mechanic) {
-      const { carBrand, operationName, difficulty } = req.body;
-      const task = await db.Task.create({ carBrand, operationName, difficulty, mechanicId: mechanic.id });
+      console.log("here");
+      const { carBrand, operation, complexity } = req.body;
+      console.log("Parsed data:", { carBrand, operation, complexity }); // Логируем данные после извлечения
+      const task = await db.Task.create({ carBrand, operation, complexity, mechanicId: mechanic.id });
       res.status(201).json(task);
     } else {
       res.status(404).send('Mechanic not found');
@@ -30,12 +39,18 @@ exports.addTaskToMechanic = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
   try {
-    const task = await db.Task.findByPk(req.params.taskId);
+    const mechanicId = req.params.id; // ID механика из параметров запроса
+    const taskId = req.params.taskId; // ID задачи из параметров запроса
+
+    console.log(mechanicId)
+    console.log(taskId)
+    const task = await db.Task.findOne({ where: { id: taskId, mechanicId } });
+
     if (task) {
       await task.destroy();
       res.status(204).send();
     } else {
-      res.status(404).send('Task not found');
+      res.status(404).send('Task not found or does not belong to this mechanic');
     }
   } catch (error) {
     res.status(500).send(error.message);
